@@ -1,7 +1,7 @@
 Diploffect.INLA
 ===============
 
-This package contains an importance sampling integrated nested Laplace approximation (INLA) implementation of the Diploffect model to estimate Bayesian posterior distributions of genetic effects while taking into account haplotype uncertainty. 
+This package contains an importance sampling-based integrated nested Laplace approximation (INLA) implementation of the Diploffect model to estimate Bayesian posterior distributions of genetic effects while taking into account haplotype uncertainty. 
 
 Example data is included in the package. The following code services as a simple vignette for using the package for now.
 
