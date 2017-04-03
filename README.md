@@ -11,10 +11,10 @@ install_github(“gkeele/Diploffect.INLA”)
 library(Diploffect.INLA)
 data(exampleCC)
 data(locusmatrix)
-inla.diploffect <- run.diploffect.inla(formula=y~1+(1|strain)+(1|dose.date), add.on=FALSE, 				       data=exampleCC, K=NULL,
-                                       prob.matrix=locusmatrix,
-                                       num.draws=10, 
-                                       use.dip.lincomb=TRUE, seed=1, gamma.rate=1, 					       impute.on="CCline")
+inla.diploffect <- run.diploffect.inla(formula=y~1+(1|strain)+(1|dose.date), add.on=FALSE, 				       
+                                       data=exampleCC, K=NULL, prob.matrix=locusmatrix,
+                                       num.draws=10, use.dip.lincomb=TRUE, seed=1, 
+				       gamma.rate=1, impute.on="CCline")
 inla.diploffect.summary <- run.diploffect.inla.summary.stats(inla.diploffect)
 plot_straineff.ci(inla.diploffect.summary, flip=FALSE)
 plot_deviation.ci(inla.diploffect.summary, flip=FALSE)
