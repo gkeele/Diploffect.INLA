@@ -19,6 +19,7 @@ Example data is included in the package. The following code services as a simple
 library(devtools)
 install_github(“gkeele/Diploffect.INLA”)
 library(Diploffect.INLA)
+library(INLA) # This is obnoxious - for some reason import within Diploffect.INLA does not work
 data(exampleCC)
 data(locusmatrix)
 inla.diploffect <- run.diploffect.inla(formula=y~1+(1|strain)+(1|dose.date), add.on=FALSE, 				       
