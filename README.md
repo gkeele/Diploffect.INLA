@@ -17,7 +17,7 @@ Example data is included in the package. The following code services as a simple
 
 ```r
 library(devtools)
-install_github(“gkeele/Diploffect.INLA”)
+install_github("gkeele/Diploffect.INLA")
 library(Diploffect.INLA)
 library(INLA) # This is obnoxious - for some reason import within Diploffect.INLA does not work
 data(exampleCC)
