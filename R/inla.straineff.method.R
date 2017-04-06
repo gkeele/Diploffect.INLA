@@ -88,7 +88,6 @@ StrainEffMethod <- setRefClass("StrainEffMethod",
 )
 
 get.straineff.method <- function(model){
-  #candidate.methods = c(GLMnetMethod, LMMethod, SurrogateMethod, StrainEffModel, INLAMethod)
   candidate.methods = c(INLAMethod)
   for (m in candidate.methods){
     ret = m$new()
