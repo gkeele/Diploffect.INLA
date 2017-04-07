@@ -40,7 +40,8 @@ run.diploffect.inla.through.genomecache <- function(formula, data, K=NULL,
                                                     num.draws, use.dip.lincomb=TRUE,
                                                     seed=1, gamma.rate=1, impute.on="SUBJECT.NAME", weights.on=NULL,  #"NUM.OBS",
                                                     scale.response=TRUE,
-                                                    do.augment.of.cache=FALSE){
+                                                    do.augment.of.cache=FALSE,
+                                                    return.joint.posterior.samples=FALSE){
   weights.on <- weights.on[1]
 
   QTL.effect <- process.formula(formula, action="return.QTL.effect")
@@ -76,6 +77,6 @@ run.diploffect.inla.through.genomecache <- function(formula, data, K=NULL,
                                                 num.founders=num.founders, prob.matrix=diplotype.matrix, add.only=add.only,
                                                 num.draws=num.draws, use.dip.lincomb=use.dip.lincomb,
                                                 seed=seed, gamma.rate=gamma.rate,
-                                                impute.on=impute.on, weights.on=weights.on, scale.response=scale.response, founders=founders, locus.name=locus)
+                                                impute.on=impute.on, weights.on=weights.on, scale.response=scale.response, founders=founders, locus.name=locus, return.joint.posterior.samples=return.joint.posterior.samples)
   return(diploffect.inla.object)
 }
