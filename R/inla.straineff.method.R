@@ -659,6 +659,7 @@ get.combined.marginal = function(samples, fieldname, rowidx, mliks, is.lincomb=F
   return (data.frame(x, y))
 }
 
+#' @export
 get.combined.marginal.emp = function(samples, mliks) {
   S = length(samples)
   stopifnot(S == length(mliks))

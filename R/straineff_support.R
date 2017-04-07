@@ -355,5 +355,5 @@ remove.small.probability <- function(data, numprop=36){
     data[i,  which(x$ix <= MM - numprop)]=0
     data[ i, ]=data[i, ]/sum(data[i,  ])
   }
-  data
+  return(data)
 }
