@@ -7,7 +7,7 @@
 run.diploffect.inla.through.genomecache(formula, data, K = NULL, genomecache,
   locus, num.draws, use.dip.lincomb = TRUE, seed = 1, gamma.rate = 1,
   impute.on = "SUBJECT.NAME", weights.on = NULL, scale.response = TRUE,
-  do.augment.of.cache = FALSE)
+  do.augment.of.cache = FALSE, return.joint.posterior.samples = FALSE)
 }
 \arguments{
 \item{formula}{An lm style formula with functions of outcome and covariates in data frame.}

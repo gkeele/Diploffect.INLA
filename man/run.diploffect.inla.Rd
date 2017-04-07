@@ -7,7 +7,8 @@
 run.diploffect.inla(formula, data, K = NULL, num.founders = 8, prob.matrix,
   add.only = FALSE, num.draws, use.dip.lincomb = TRUE, seed = 1,
   gamma.rate = 1, impute.on = "SUBJECT.NAME", weights.on = NULL,
-  scale.response = TRUE, founders = NULL, locus.name = NULL)
+  scale.response = TRUE, founders = NULL, locus.name = NULL,
+  return.joint.posterior.samples = FALSE)
 }
 \arguments{
 \item{formula}{An lm style formula with functions of outcome and covariates in data frame.}
