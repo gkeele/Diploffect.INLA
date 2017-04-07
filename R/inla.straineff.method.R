@@ -386,7 +386,6 @@ INLAMethod <- setRefClass("INLAMethod",
 
                                 full.par <- sapply(latent.samples, function(x) x$latent)
                                 rownames(full.par) <- rownames(latent.samples[[1]]$latent)
-                                results$joint.posterior.samples <- NULL
                                 if(return.joint.posterior.samples){
                                   results$joint.posterior.samples[[case]] = full.par
                                 }
