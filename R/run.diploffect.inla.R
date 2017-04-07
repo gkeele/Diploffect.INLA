@@ -47,7 +47,7 @@ run.diploffect.inla <- function(formula, data, K=NULL,
                                 use.dip.lincomb=TRUE, seed=1, gamma.rate=1,
                                 impute.on="SUBJECT.NAME", weights.on=NULL, #"NUM.OBS",
                                 scale.response=TRUE,
-                                founders=NULL, locus.name=NULL){
+                                founders=NULL, locus.name=NULL, return.joint.posterior.samples=FALSE){
 
   weights.on <- weights.on[1]
 
@@ -127,6 +127,7 @@ run.diploffect.inla <- function(formula, data, K=NULL,
                          founder.names=founders,
                          add.only=add.only,
                          var.components=var.components,
+                         return.joint.posterior.samples=return.joint.posterior.samples,
                          imputation.map=imputation.map)
   # Adding analysis information to Diploffect object
   genetic.effects <- c("additive", "dominant", "polygene")[c(TRUE, !add.only, !is.null(K))]
