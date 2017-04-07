@@ -388,7 +388,7 @@ INLAMethod <- setRefClass("INLAMethod",
                                 rownames(full.par) <- rownames(latent.samples[[1]]$latent)
                                 results$joint.posterior.samples <- NULL
                                 if(return.joint.posterior.samples){
-                                  results$joint.posterior.samples[[case]] <- full.par
+                                  results$joint.posterior.samples[[case]] = full.par
                                 }
 
                                 ## Calculating sums of squares
