@@ -24,7 +24,7 @@ external.get.ci.from.inla.marginal <- function(marginals){
 
 #' @export
 get.posterior.from.samples <- function(samples.matrix.list, logmlik, variable){
-  logmliks = as.vector(scale(result$results$logmliks, scale=F))
+  logmlik = as.vector(scale(logmlik, scale=F))
   mlik = exp(logmlik)
   
   make.density.matrix <- function(density.object) {
@@ -33,7 +33,7 @@ get.posterior.from.samples <- function(samples.matrix.list, logmlik, variable){
     return(density.matrix)
   }
   
-  density.list <- lapply(1:length(mlik), function(i) make.density.matrix(density(samples.matrix.list[[i]][,variable], from=0, to=1)))
-  marginal <- list(marginal=get.combined.marginal.emp(density.list, mliks))
-  return (get.ci.from.inla.marginal(marginal))
+  density.list <- lapply(1:length(mlik), function(i) make.density.matrix(density(samples.matrix.list[[i]][, variable], from=0, to=1)))
+  marginal <- list(marginal=get.combined.marginal.emp(density.list, mlik))
+  return (external.get.ci.from.inla.marginal(marginal))
 }
