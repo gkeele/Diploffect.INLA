@@ -149,6 +149,7 @@ INLAMethod <- setRefClass("INLAMethod",
                                                 founder.names,
                                                 gamma.rate=1,
                                                 latent.sample.num=1000,
+                                                return.joint.posterior.samples=FALSE,
                                                 add.only=FALSE,
                                                 var.components,
                                                 imputation.map){
@@ -374,7 +375,6 @@ INLAMethod <- setRefClass("INLAMethod",
                                   next;
                                 }
                                 results$logmliks[case] = result$mlik[1]
-                                #print(result$mlik[1])
                                 cat(paste(paste0(case, ":"), result$mlik[1]), "\n")
 
                                 results$betas[case, 1:M] = result$summary.random[["idx"]]$mean[1:M]
@@ -382,11 +382,14 @@ INLAMethod <- setRefClass("INLAMethod",
                                 results$summary.random[[case]] = result$summary.random
                                 results$inla.objects[[case]] = list(marginals.random = result$marginals.random, marginals.lincomb = result$marginals.lincomb.derived, summary.hyperpar=result$summary.hyperpar)
                                 hyper.samples <- INLA::inla.hyperpar.sample(n=1000, result=result, intern=FALSE)
-                                #latent.samples <- inla.posterior.sample(n=latent.sample.num, result=result, hyper.user.scale=TRUE, use.improved.mean=TRUE)
                                 latent.samples <- INLA::inla.posterior.sample(n=latent.sample.num, result=result, use.improved.mean=TRUE)
 
                                 full.par <- sapply(latent.samples, function(x) x$latent)
                                 rownames(full.par) <- rownames(latent.samples[[1]]$latent)
+                                results$joint.posterior.samples <- NULL
+                                if(return.joint.posterior.samples){
+                                  results$joint.posterior.samples <- full.par
+                                }
 
                                 ## Calculating sums of squares
                                 SS.mat <- t(apply(full.par, 2, function(x) get.partial.ss(x, y=y, X.fix=X_, X.add=X.add, X.dom=X.dom, Z2=Z2, var.components=var.components)))
@@ -399,17 +402,6 @@ INLAMethod <- setRefClass("INLAMethod",
                                 colnames(hyper.samples.exp)[colnames(hyper.samples.exp) == "idx"] <- "QTL.add.exp"
                                 colnames(hyper.samples.exp)[colnames(hyper.samples.exp) == "dom.idx"] <- "QTL.dom.exp"
                                 colnames(hyper.samples.exp)[colnames(hyper.samples.exp) == "poly.idx"] <- "QTL.kinship.exp"
-
-                                #cbind(hyper.samples, apply(hyper.samples, 1, function(x) (1/exp(x["Log precision for idx in user-scale"]))/sum(1/exp(x))))
-                                #colnames(hyper.samples.ex)[ncol(hyper.samples.ex)] <- "QTL.add.exp"
-
-                                #if (!add.only) {
-                                #  hyper.samples.ex <- cbind(hyper.samples.ex, apply(hyper.samples, 1, function(x) (1/exp(x["Log precision for dom.idx in user-scale"]))/sum(1/exp(x))))
-                                #  colnames(hyper.samples.ex)[ncol(hyper.samples.ex)] <- "QTL.dom.exp"
-                                #}
-
-                                #hyper.samples.ex <- cbind(hyper.samples.ex, apply(hyper.samples, 1, function(x) (1/exp(x["Log precision for poly.idx in user-scale"]))/sum(1/exp(x))))
-                                #colnames(hyper.samples.ex)[ncol(hyper.samples.ex)] <- "QTL.kinship.exp"
 
                                 results$hyper.samples[[case]] = hyper.samples
                                 results$hyper.varexp.samples[[case]] = hyper.samples.exp
