@@ -9,7 +9,7 @@ This package requires the [INLA](http://www.r-inla.org/) R package, which is not
 ```r
 install.packages("INLA", repos="https://www.math.ntnu.no/inla/R/stable")
 ```  
-If the haplotype data are stored in a genome cache, Diploffect.INLA can make use of convenience utilities contained in bagpipe.backend, the R backend to the [Bagpipe](http://valdarlab.unc.edu/software/bagpipe/_build/html/index.html) software that can be used to map QTL in multiparent populations.
+In addition to phenotype values, the Diploffect package requires that each individual has a set of diplotype probabilities. These diplotype probabilities can be provided directly as a matrix, or, for backwards compatibility, they can be provided as a data directory as would be output from the haplotype reconstruction method HAPPY (Mott et al, 2000), henceforth described as a genome cache. If the diplotype probabilities are stored in a genome cache, Diploffect.INLA can make use of convenience utilities contained in bagpipe.backend, the R backend to the [Bagpipe](http://valdarlab.unc.edu/software/bagpipe/_build/html/index.html) software that can be used to map QTL in multiparent populations.
 
 ## Example 
 
