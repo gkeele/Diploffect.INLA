@@ -11,4 +11,3 @@ Encoding: UTF-8
 LazyData: true
 RoxygenNote: 6.0.1
 Imports: INLA
-Suggests: bagpipe.backend
