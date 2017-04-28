@@ -50,7 +50,7 @@ run.diploffect.inla.through.genomecache <- function(formula, data, K=NULL,
 
   formula.string.new.data <- process.formula(formula, action="make.new.data.formula", impute.on=c(impute.on, weights.on))
   new.data <- model.frame(formula(formula.string.new.data), data=data)
-  h <- bagpipe.backend::DiploprobReader$new(genomecache)
+  h <- DiploprobReader$new(genomecache)
   founders <- h$getFounders()
   num.founders <- length(founders)
   # cache has rows per individual, not line
