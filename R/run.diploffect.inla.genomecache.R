@@ -3,7 +3,9 @@
 #' This function primarily takes a formula, locus, data frame, and genomecache and runs the
 #' corresponding Diploffect model for a given number of samples.
 #'
-#' @param formula An lm style formula with functions of outcome and covariates in data frame.
+#' @param formula An lm style formula with functions of outcome and covariates in data frame. Additionally the 
+#' right-hand side is expected to contain either "locus.additive" or "locus.full", specifying whether an 
+#' additive or full model is fit. 
 #' @param data A data frame with outcome and potential covariates. Should also have individual IDs
 #' that link to IDs in the genomecache, commonly with this column named "SUBJECT.NAME".
 #' @param K A positive semi-definite relationship matrix, usually a realized genetic relationship matrix (GRM)

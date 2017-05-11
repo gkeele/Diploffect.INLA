@@ -10,7 +10,9 @@ run.diploffect.inla.through.genomecache(formula, data, K = NULL, genomecache,
   do.augment.of.cache = FALSE, return.joint.posterior.samples = FALSE)
 }
 \arguments{
-\item{formula}{An lm style formula with functions of outcome and covariates in data frame.}
+\item{formula}{An lm style formula with functions of outcome and covariates in data frame. Additionally the 
+right-hand side is expected to contain either "locus.additive" or "locus.full", specifying whether an 
+additive or full model is fit.}
 
 \item{data}{A data frame with outcome and potential covariates. Should also have individual IDs
 that link to IDs in the genomecache, commonly with this column named "SUBJECT.NAME".}
