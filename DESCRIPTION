@@ -5,7 +5,7 @@ Authors@R: c(person("Zhaojun", "Zhang", role = "aut"),
              person("William", "Valdar", role = "aut"), 
              person("Gregory", "Keele", email = "gkeele@gmail.com", role = c("aut", "cre")))
 Description: The Diploffect model estimates haplotype-based effects while accounting for uncertainty in haplotype state. Importance sampling with INLA (based on weighting according to INLA's estimate of the marginal likelihood) allows this to be done efficiently for complex models.
-Depends: R (>= 3.3.2)
+Depends: R (>= 3.3.1)
 License: GPL (>= 2)
 Encoding: UTF-8
 LazyData: true
