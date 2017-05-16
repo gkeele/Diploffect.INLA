@@ -398,7 +398,7 @@ plot_varexp.ci <- function(inla.diploffect.ci, xlab="Variance Explained", add.nu
     SS.ci.list[[length(SS.ci.list)+1]] <- inla.diploffect.ci$SS.poly.ci
     h2.ci.list[[length(h2.ci.list)+1]] <- inla.diploffect.ci$kinship.ci
 
-    effect.labels <- c(effect.labels, "QTL Polygene")
+    effect.labels <- c(effect.labels, "Polygene")
   }
 
   SS.ci <- join.ci(SS.ci.list)
