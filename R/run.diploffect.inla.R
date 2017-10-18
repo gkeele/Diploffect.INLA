@@ -115,7 +115,7 @@ run.diploffect.inla <- function(formula, data, K=NULL,
   random.var <- process.formula(formula, action="return.random.variable")
   if(length(random.var) > 0){ random.var <- paste0("random.", random.var) }
   var.components <- c(random.var, c("idx", "dom.idx", "poly.idx")[c(TRUE, !add.only, !is.null(K))])
-
+  browser()
   inla = INLAMethod$new()
   inla$init(model=model, data=prob.matrix, X=X, Y=Y, scale=scale, Z=Z, Z2=Z2, K=K)
   result = inla$estimate(num.draws=num.draws,
