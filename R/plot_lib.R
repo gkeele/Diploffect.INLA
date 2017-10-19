@@ -144,7 +144,7 @@ plot_straineff.ci <- function(inla.diploffect.ci, sn=NULL, xlab="Haplotype Effec
   ypos <- plot.ci(ci$med[order], ci$quant.narrow[order,], ci$quant.wide[order,], names=sn[order],
                   xlab=xlab, col.midvals="white",
                   pch.midvals="|", type="p", 
-                  main=main,
+                  main=main, main.cex=main.cex,
                   include.top.axis=include.top.axis, ...)
   points(ci$mu[order], ypos, pch="|")
   abline(v=0, lty=2)
