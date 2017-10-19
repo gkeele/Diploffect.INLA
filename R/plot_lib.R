@@ -33,6 +33,8 @@ plot.ci <- function(midvals, narrow.intervals, wide.intervals,
                     pch.midvals=19,
                     col=rep("black", length(midvals)),
                     col.midvals=col,
+                    main.cex=1,
+                    include.top.axis=TRUE,
                     shift=0,
                     type="p",
                     use.this.lim=NULL,
@@ -54,9 +56,9 @@ plot.ci <- function(midvals, narrow.intervals, wide.intervals,
     mar <- c(5, name.margin, 4, 2)+0.1
     oldmar <- par(mar=mar); on.exit(par(mar=oldmar))
     plot(lim, c(0,nvals+0.5), type="n", axes=FALSE, ylab=ylab, xlab="", main=main, ...)
-    title(xlab=xlab, line=xlab.line)
+    title(xlab=xlab, line=xlab.line, cex=main.cex)
     axis(1)
-    axis(3, line=-1)
+    if(include.top.axis){ axis(3, line=-1) }
     if(yaxis){
       axis(2, at=y.pos, labels=rev(names), las=1, lty=0, hadj=0, line=name.line)
     }
@@ -122,7 +124,10 @@ prepare.additive.dominant.ratio.posterior <- function(files, num.draws=1000) {
 #'                                        use.dip.lincomb=TRUE, seed=1, gamma.rate=1, impute.on="CCline")
 #' inla.diploffect.summary <- run.diploffect.inla.summary.stats(inla.diploffect)
 #' plot_straineff.ci(inla.diploffect.summary, flip=FALSE)
-plot_straineff.ci <- function(inla.diploffect.ci, sn=NULL, xlab="Haplotype Effects", main="", flip=TRUE, ...) {
+plot_straineff.ci <- function(inla.diploffect.ci, sn=NULL, xlab="Haplotype Effects", 
+                              main=NULL,
+                              include.top.axis=TRUE,
+                              flip=TRUE, ...) {
   ci <- inla.diploffect.ci$strain.ci
   if(is.null(sn)){
     sn <- inla.diploffect.ci$analysis.id$founders
@@ -130,11 +135,17 @@ plot_straineff.ci <- function(inla.diploffect.ci, sn=NULL, xlab="Haplotype Effec
 
   if(flip){ order <- rev(1:nrow(ci$quant.narrow)) }
   if(!flip){ order <- 1:nrow(ci$quant.narrow) }
-  main <- c(paste(inla.diploffect.ci$analysis.id$formula, paste0("locus(", inla.diploffect.ci$analysis.id$locus, ")"), sep=" + "),
-            paste("INLA samples:", inla.diploffect.ci$analysis.id$num.draws))
+  
+  if(is.null(main)){
+    main <- c(paste(inla.diploffect.ci$analysis.id$formula, paste0("locus(", inla.diploffect.ci$analysis.id$locus, ")"), sep=" + "),
+              paste("INLA samples:", inla.diploffect.ci$analysis.id$num.draws))
+  }
+  
   ypos <- plot.ci(ci$med[order], ci$quant.narrow[order,], ci$quant.wide[order,], names=sn[order],
                   xlab=xlab, col.midvals="white",
-                  pch.midvals="|", type="p", main=main, ...)
+                  pch.midvals="|", type="p", 
+                  main=main,
+                  include.top.axis=include.top.axis, ...)
   points(ci$mu[order], ypos, pch="|")
   abline(v=0, lty=2)
 }

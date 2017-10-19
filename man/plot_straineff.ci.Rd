@@ -5,7 +5,7 @@
 \title{Plot approximate posterior credible intervals of additive haplotype effects as a caterpillar plot}
 \usage{
 plot_straineff.ci(inla.diploffect.ci, sn = NULL, xlab = "Haplotype Effects",
-  main = "", flip = TRUE, ...)
+  main = NULL, include.top.axis = TRUE, flip = TRUE, ...)
 }
 \arguments{
 \item{inla.diploffect.ci}{A Diploffect.INLA summary object. Output from run.diploffect.inla.summary.stats(). Contains credible information
