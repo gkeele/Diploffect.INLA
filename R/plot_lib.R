@@ -125,7 +125,7 @@ prepare.additive.dominant.ratio.posterior <- function(files, num.draws=1000) {
 #' inla.diploffect.summary <- run.diploffect.inla.summary.stats(inla.diploffect)
 #' plot_straineff.ci(inla.diploffect.summary, flip=FALSE)
 plot_straineff.ci <- function(inla.diploffect.ci, sn=NULL, xlab="Haplotype Effects", 
-                              main=NULL,
+                              main=NULL, main.cex=1,
                               include.top.axis=TRUE,
                               flip=TRUE, ...) {
   ci <- inla.diploffect.ci$strain.ci
