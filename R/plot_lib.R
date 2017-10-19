@@ -24,8 +24,7 @@ load.ci.from.mcmc <- function(M, file, H=1, h=1) {
 plot.ci <- function(midvals, narrow.intervals, wide.intervals,
                     names=1:length(midvals),
                     add=FALSE,
-                    xlab="Estimate",
-                    xlab.line=2.5,
+                    xlab="Estimate", xlab.line=2.5, xlab.cex=1,
                     ylab="",
                     yaxis=TRUE,
                     name.margin=6,
@@ -33,12 +32,11 @@ plot.ci <- function(midvals, narrow.intervals, wide.intervals,
                     pch.midvals=19,
                     col=rep("black", length(midvals)),
                     col.midvals=col,
-                    main.cex=1,
                     include.top.axis=TRUE,
                     shift=0,
                     type="p",
                     use.this.lim=NULL,
-                    main="",
+                    main="", main.cex=1, main.line=1,
                     ...)
 {
   nvals <- length(midvals)
@@ -55,8 +53,9 @@ plot.ci <- function(midvals, narrow.intervals, wide.intervals,
 
     mar <- c(5, name.margin, 4, 2)+0.1
     oldmar <- par(mar=mar); on.exit(par(mar=oldmar))
-    plot(lim, c(0,nvals+0.5), type="n", axes=FALSE, ylab=ylab, xlab="", main=main, ...)
-    title(xlab=xlab, line=xlab.line, cex.main=main.cex)
+    plot(lim, c(0,nvals+0.5), type="n", axes=FALSE, ylab=ylab, xlab="", main=NA, ...)
+    title(xlab=xlab, line=xlab.line, cex.main=xlab.cex)
+    title(main=main, line=main.line, cex.main=main.cex)
     axis(1)
     if(include.top.axis){ axis(3, line=-1) }
     if(yaxis){
@@ -125,7 +124,7 @@ prepare.additive.dominant.ratio.posterior <- function(files, num.draws=1000) {
 #' inla.diploffect.summary <- run.diploffect.inla.summary.stats(inla.diploffect)
 #' plot_straineff.ci(inla.diploffect.summary, flip=FALSE)
 plot_straineff.ci <- function(inla.diploffect.ci, sn=NULL, xlab="Haplotype Effects", 
-                              main=NULL, main.cex=1,
+                              main=NULL, main.cex=1, main.line=1,
                               include.top.axis=TRUE,
                               flip=TRUE, ...) {
   ci <- inla.diploffect.ci$strain.ci
@@ -144,7 +143,7 @@ plot_straineff.ci <- function(inla.diploffect.ci, sn=NULL, xlab="Haplotype Effec
   ypos <- plot.ci(ci$med[order], ci$quant.narrow[order,], ci$quant.wide[order,], names=sn[order],
                   xlab=xlab, col.midvals="white",
                   pch.midvals="|", type="p", 
-                  main=main, main.cex=main.cex,
+                  main=main, main.cex=main.cex, main.line=main.line,
                   include.top.axis=include.top.axis, ...)
   points(ci$mu[order], ypos, pch="|")
   abline(v=0, lty=2)
