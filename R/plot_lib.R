@@ -56,7 +56,7 @@ plot.ci <- function(midvals, narrow.intervals, wide.intervals,
     mar <- c(5, name.margin, 4, 2)+0.1
     oldmar <- par(mar=mar); on.exit(par(mar=oldmar))
     plot(lim, c(0,nvals+0.5), type="n", axes=FALSE, ylab=ylab, xlab="", main=main, ...)
-    title(xlab=xlab, line=xlab.line, cex=main.cex)
+    title(xlab=xlab, line=xlab.line, cex.main=main.cex)
     axis(1)
     if(include.top.axis){ axis(3, line=-1) }
     if(yaxis){
