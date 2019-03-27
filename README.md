@@ -7,7 +7,7 @@ This package contains an importance sampling-based integrated nested Laplace app
 
 This package requires the [INLA](http://www.r-inla.org/) R package, which is not available through CRAN. Visit the site, or more simply enter the following code at the prompt in R:
 ```r
-install.packages("INLA", repos="https://www.math.ntnu.no/inla/R/stable")
+install.packages("INLA", repos=c(getOption("repos"), INLA="https://inla.r-inla-download.org/R/stable"), dep=TRUE) 
 ```  
 In addition to phenotype values, the Diploffect package requires that each individual has a set of diplotype (founder haplotype pair identity) probabilities for the locus. These diplotype probabilities can be provided directly as a matrix, or, for backwards compatibility, they can be provided as a data directory as would be output from the haplotype reconstruction method HAPPY (Mott *et al.* 2000), henceforth described as a genome cache. If the diplotype probabilities are stored in a genome cache, Diploffect.INLA can make use of convenience utilities to run the Diploffect model.
 
