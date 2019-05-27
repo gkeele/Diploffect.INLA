@@ -112,7 +112,7 @@ prepare.additive.dominant.ratio.posterior <- function(files, num.draws=1000) {
 #' @param main DEFAULT: "". Title for the plot.
 #' @param flip DEFAULT: TRUE. Flips the order of the haplotypes. Allows a little flexibility in how the effects are arranged.
 #' @return Nothing. Produces plot.
-#' @export
+#' @export plot.straineff.ci
 #' @examples
 #' library(Diploffect.INLA)
 #' data(exampleCC)
@@ -122,8 +122,8 @@ prepare.additive.dominant.ratio.posterior <- function(files, num.draws=1000) {
 #'                                        num.draws=10, 
 #'                                        use.dip.lincomb=TRUE, seed=1, gamma.rate=1, impute.on="CCline")
 #' inla.diploffect.summary <- run.diploffect.inla.summary.stats(inla.diploffect)
-#' plot_straineff.ci(inla.diploffect.summary, flip=FALSE)
-plot_straineff.ci <- function(inla.diploffect.ci, sn=NULL, xlab="Haplotype Effects", 
+#' plot.straineff.ci(inla.diploffect.summary, flip=FALSE)
+plot.straineff.ci <- function(inla.diploffect.ci, sn=NULL, xlab="Haplotype Effects", 
                               main=NULL, main.cex=1, main.line=2,
                               include.top.axis=TRUE,
                               flip=TRUE, ...) {
@@ -160,7 +160,7 @@ plot_straineff.ci <- function(inla.diploffect.ci, sn=NULL, xlab="Haplotype Effec
 #' @param xlab DEFAULT: "Dominant Deviation Effects". Label for the x axis of the plot.
 #' @param flip DEFAULT: TRUE. Flips the order of the haplotypes. Allows a little flexibility in how the effects are arranged.
 #' @return Nothing. Produces plot.
-#' @export
+#' @export plot.deviation.ci
 #' @examples
 #' library(Diploffect.INLA)
 #' data(exampleCC)
@@ -170,8 +170,8 @@ plot_straineff.ci <- function(inla.diploffect.ci, sn=NULL, xlab="Haplotype Effec
 #'                                        num.draws=10, 
 #'                                        use.dip.lincomb=TRUE, seed=1, gamma.rate=1, impute.on="CCline")
 #' inla.diploffect.summary <- run.diploffect.inla.summary.stats(inla.diploffect)
-#' plot_deviation.ci(inla.diploffect.summary, flip=FALSE)
-plot_deviation.ci <- function(inla.diploffect.ci, sn=NULL, xlab="Dominant Deviation Effects", flip=TRUE, ...) {
+#' plot.deviation.ci(inla.diploffect.summary, flip=FALSE)
+plot.deviation.ci <- function(inla.diploffect.ci, sn=NULL, xlab="Dominant Deviation Effects", flip=TRUE, ...) {
   ci <- inla.diploffect.ci$deviation.ci
   if(is.null(sn)){
     founders <- inla.diploffect.ci$analysis.id$founders
@@ -201,7 +201,7 @@ plot_deviation.ci <- function(inla.diploffect.ci, sn=NULL, xlab="Dominant Deviat
 #' @param xlab DEFAULT: "Diplotype Effects". Label for the x axis of the plot.
 #' @param flip DEFAULT: TRUE. Flips the order of the haplotypes. Allows a little flexibility in how the effects are arranged.
 #' @return Nothing. Produces plot.
-#' @export
+#' @export plot.diplotype.ci
 #' @examples
 #' library(Diploffect.INLA)
 #' data(exampleCC)
@@ -212,7 +212,7 @@ plot_deviation.ci <- function(inla.diploffect.ci, sn=NULL, xlab="Dominant Deviat
 #'                                        use.dip.lincomb=TRUE, seed=1, gamma.rate=1, impute.on="CCline")
 #' inla.diploffect.summary <- run.diploffect.inla.summary.stats(inla.diploffect)
 #' plot_diplotype.ci(inla.diploffect.summary, flip=FALSE)
-plot_diplotype.ci <- function(inla.diploffect.ci, sn=NULL, xlab="Diplotype Effects", flip=TRUE, ...) {
+plot.diplotype.ci <- function(inla.diploffect.ci, sn=NULL, xlab="Diplotype Effects", flip=TRUE, ...) {
   ci <- inla.diploffect.ci$diplotype.ci
   if(is.null(sn)){
     founders <- inla.diploffect.ci$analysis.id$founders
@@ -276,72 +276,6 @@ plot.comparison.cis <- function(ci.list, analysis.id, labels=NULL, sn, xlab="Hap
   }
 }
 
-#' Plot approximate posterior credible intervals of proportion variance explained (PVE) due to QTL as a caterpillar plot
-#'
-#' This function takes a Diploffect.INLA summary object and plots the posterior credible intervals of
-#' the proportion of the variance explained due to QTL effects.
-#'
-#' @param inla.diploffect.ci A Diploffect.INLA summary object. Output from run.diploffect.inla.summary.stats(). Contains credible information
-#' for various model parameters.
-#' @param xlab DEFAULT: "QTL Effects (Variance Explained)". Label for the x axis of the plot.
-#' @return Nothing. Produces plot.
-#' @export
-#' @examples
-#' library(Diploffect.INLA)
-#' data(exampleCC)
-#' data(locusmatrix)
-#' inla.diploffect <- run.diploffect.inla(formula=y~1+(1|strain)+(1|dose.date), add.on=FALSE, data=exampleCC, K=NULL,
-#'                                        prob.matrix=locusmatrix,
-#'                                        num.draws=10, 
-#'                                        use.dip.lincomb=TRUE, seed=1, gamma.rate=1, impute.on="CCline")
-#' inla.diploffect.summary <- run.diploffect.inla.summary.stats(inla.diploffect)
-#' plot_qtl.varexp.ci(inla.diploffect.summary)
-plot_qtl.varexp.ci <- function(inla.diploffect.ci, xlab="QTL Effects (Variance Explained)", ...){
-  join.ci <- function(ci.list) {
-    combine.ci <- list()
-    med <- NULL
-    mu <- NULL
-    quant.narrow <- NULL
-    quant.wide <- NULL
-    for (i in 1:length(ci.list)) {
-      med <- c(med, ci.list[[i]]$med)
-      mu <- c(mu, ci.list[[i]]$mu)
-      quant.narrow <- rbind(quant.narrow, ci.list[[i]]$quant.narrow)
-      quant.wide <- rbind(quant.wide, ci.list[[i]]$quant.wide)
-    }
-    combine.ci <- list(med=med, mu=mu, quant.narrow=quant.narrow, quant.wide=quant.wide)
-    return(combine.ci)
-  }
-
-  SS.ci.list <- list(inla.diploffect.ci$SS.add.ci)
-  h2.ci.list <- list(inla.diploffect.ci$qtl.add.ci)
-
-  effect.labels <- c("QTL Additive")
-  if("dominant" %in% inla.diploffect.ci$analysis.id$genetic.effects){
-    SS.ci.list[[length(SS.ci.list)+1]] <- inla.diploffect.ci$SS.dom.ci
-    SS.ci.list[[length(SS.ci.list)+1]] <- inla.diploffect.ci$SS.total.ci
-
-    h2.ci.list[[length(h2.ci.list)+1]] <- inla.diploffect.ci$qtl.dom.ci
-    h2.ci.list[[length(h2.ci.list)+1]] <- inla.diploffect.ci$qtl.total.ci
-
-    effect.labels <- c(effect.labels, "QTL Dominant", "QTL Total")
-  }
-  if("polygene" %in% inla.diploffect.ci$analysis.id$genetic.effects){
-    SS.ci.list[[length(SS.ci.list)+1]] <- inla.diploffect.ci$SS.poly.ci
-    h2.ci.list[[length(h2.ci.list)+1]] <- inla.diploffect.ci$kinship.ci
-
-    effect.labels <- c(effect.labels, "QTL Polygene")
-  }
-
-  SS.ci <- join.ci(SS.ci.list)
-  h2.ci <- join.ci(h2.ci.list)
-
-  plot.comparison.cis(ci.list=list(SS.ci, h2.ci),
-                      analysis.id=inla.diploffect.ci$analysis.id,
-                      labels=c("SS", "VC"), sn=effect.labels, xlab=xlab)
-
-}
-
 #' Plot approximate posterior credible intervals of proportion variance explained (PVE) as a caterpillar plot
 #'
 #' This function takes a Diploffect.INLA summary object and plots the posterior credible intervals of
@@ -352,7 +286,7 @@ plot_qtl.varexp.ci <- function(inla.diploffect.ci, xlab="QTL Effects (Variance E
 #' @param xlab DEFAULT: "Variance Explained". Label for the x axis of the plot.
 #' @param add.numbers DEFAULT: FALSE. Adds numeric summaries next to intervals.
 #' @return Nothing. Produces plot.
-#' @export
+#' @export plot.varexp.ci
 #' @examples
 #' library(Diploffect.INLA)
 #' data(exampleCC)
@@ -362,8 +296,10 @@ plot_qtl.varexp.ci <- function(inla.diploffect.ci, xlab="QTL Effects (Variance E
 #'                                        num.draws=10, 
 #'                                        use.dip.lincomb=TRUE, seed=1, gamma.rate=1, impute.on="CCline")
 #' inla.diploffect.summary <- run.diploffect.inla.summary.stats(inla.diploffect)
-#' plot_varexp.ci(inla.diploffect.summary, add.numbers=TRUE)
-plot_varexp.ci <- function(inla.diploffect.ci, xlab="Variance Explained", add.numbers=FALSE, ...){
+#' plot.varexp.ci(inla.diploffect.summary, add.numbers=TRUE)
+plot.varexp.ci <- function(inla.diploffect.ci, 
+                           xlab="Variance Explained", 
+                           add.numbers=FALSE, ...){
   join.ci <- function(ci.list) {
     combine.ci <- list()
     med <- NULL
