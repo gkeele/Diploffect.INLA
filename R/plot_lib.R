@@ -36,7 +36,9 @@ plot.ci <- function(midvals, narrow.intervals, wide.intervals,
                     shift=0,
                     type="p",
                     use.this.lim=NULL,
-                    main="", main.cex=1, main.line=1,
+                    main="", 
+                    main.cex=1, 
+                    main.line=1,
                     ...)
 {
   nvals <- length(midvals)
@@ -123,8 +125,12 @@ prepare.additive.dominant.ratio.posterior <- function(files, num.draws=1000) {
 #'                                        use.dip.lincomb=TRUE, seed=1, gamma.rate=1, impute.on="CCline")
 #' inla.diploffect.summary <- run.diploffect.inla.summary.stats(inla.diploffect)
 #' plot.straineff.ci(inla.diploffect.summary, flip=FALSE)
-plot.straineff.ci <- function(inla.diploffect.ci, sn=NULL, xlab="Haplotype Effects", 
-                              main=NULL, main.cex=1, main.line=2,
+plot.straineff.ci <- function(inla.diploffect.ci, 
+                              sn=NULL, 
+                              xlab="Haplotype Effects", 
+                              main=NULL, 
+                              main.cex=1, 
+                              main.line=2,
                               include.top.axis=TRUE,
                               flip=TRUE, ...) {
   ci <- inla.diploffect.ci$strain.ci
@@ -233,12 +239,21 @@ plot.diplotype.ci <- function(inla.diploffect.ci, sn=NULL, xlab="Diplotype Effec
   abline(v=0, lty=2)
 }
 
-plot.comparison.cis <- function(ci.list, analysis.id, labels=NULL, sn, xlab="Haplotype Effects", add.numbers=FALSE,
-                                use.this.lim=NULL, comp.col=c("black", "red"), ...)
+plot.comparison.cis <- function(ci.list, 
+                                analysis.id, 
+                                labels=NULL, 
+                                sn, 
+                                main="", 
+                                main.cex=1, 
+                                main.line=1,
+                                xlab="Haplotype Effects", 
+                                add.numbers=FALSE,
+                                use.this.lim=NULL, 
+                                comp.col=c("black", "red"), ...)
   {
   par(mar=c(3.2,3.2,2,1), mgp=c(2.2,.7,0), tck=-.01, las=1)
-  main <- c(paste(analysis.id$formula, paste0("locus(", analysis.id$locus, ")"), sep=" + "),
-            paste("INLA samples:", analysis.id$num.draws))
+  # main <- c(paste(analysis.id$formula, paste0("locus(", analysis.id$locus, ")"), sep=" + "),
+  #           paste("INLA samples:", analysis.id$num.draws))
   add = FALSE
   step = 0.4 / (length(ci.list) - 1)
   shift = 0.2 ## start
@@ -298,7 +313,10 @@ plot.comparison.cis <- function(ci.list, analysis.id, labels=NULL, sn, xlab="Hap
 #' inla.diploffect.summary <- run.diploffect.inla.summary.stats(inla.diploffect)
 #' plot.varexp.ci(inla.diploffect.summary, add.numbers=TRUE)
 plot.varexp.ci <- function(inla.diploffect.ci, 
-                           xlab="Variance Explained", 
+                           xlab="Variance Explained",
+                           main=NULL, 
+                           main.cex=1, 
+                           main.line=2,
                            add.numbers=FALSE, ...){
   join.ci <- function(ci.list) {
     combine.ci <- list()
@@ -318,6 +336,11 @@ plot.varexp.ci <- function(inla.diploffect.ci,
 
   SS.ci.list <- list()
   h2.ci.list <- list()
+  
+  if(is.null(main)){
+    main <- c(paste(inla.diploffect.ci$analysis.id$formula, paste0("locus(", inla.diploffect.ci$analysis.id$locus, ")"), sep=" + "),
+              paste("INLA samples:", inla.diploffect.ci$analysis.id$num.draws))
+  }
 
   effect.labels <- NULL
   if(!is.null(inla.diploffect.ci$nonqtl.ci.list)){
@@ -352,9 +375,14 @@ plot.varexp.ci <- function(inla.diploffect.ci,
 
   plot.comparison.cis(ci.list=list(SS.ci, h2.ci),
                       analysis.id=inla.diploffect.ci$analysis.id,
-                      labels=c("SS", "VC"), sn=effect.labels, xlab=xlab, add.numbers=add.numbers, use.this.lim=c(0, 1))
+                      labels=c("SS", "VC"), 
+                      sn=effect.labels, 
+                      xlab=xlab, 
+                      add.numbers=add.numbers, 
+                      use.this.lim=c(0, 1),
+                      main=main, main.cex=main.cex, main.line=main.line,
+                      ...)
   abline(v=1, lty=2)
-
 }
 
 plot.diallel <- function(inla.diploffect.ci, sn=NULL) {
