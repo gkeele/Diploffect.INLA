@@ -372,7 +372,7 @@ plot.varexp.ci <- function(inla.diploffect.ci,
 
   SS.ci <- join.ci(SS.ci.list)
   h2.ci <- join.ci(h2.ci.list)
-
+  #browser()
   plot.comparison.cis(ci.list=list(SS.ci, h2.ci),
                       analysis.id=inla.diploffect.ci$analysis.id,
                       labels=c("SS", "VC"), 
