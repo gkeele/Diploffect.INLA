@@ -27,8 +27,8 @@ inla.diploffect <- run.diploffect.inla(formula=y~1+(1|strain)+(1|dose.date), add
                                        num.draws=10, use.dip.lincomb=TRUE, seed=1, 
 				       gamma.rate=1, impute.on="CCline")
 inla.diploffect.summary <- run.diploffect.inla.summary.stats(inla.diploffect)
-plot_straineff.ci(inla.diploffect.summary, flip=FALSE)
-plot_deviation.ci(inla.diploffect.summary, flip=FALSE)
-plot_diplotype.ci(inla.diploffect.summary, flip=FALSE)
-plot_varexp.ci(inla.diploffect.summary, add.numbers=TRUE)
+plot.straineff.ci(inla.diploffect.summary, flip=FALSE)
+plot.deviation.ci(inla.diploffect.summary, flip=FALSE)
+plot.diplotype.ci(inla.diploffect.summary, flip=FALSE)
+plot.varexp.ci(inla.diploffect.summary, add.numbers=TRUE)
 ```
