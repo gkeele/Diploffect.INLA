@@ -14,9 +14,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-```{r install}
-devtools::install_github("fboehm/Diploffect.INLA")
-```
+
 
 ```{r setup}
 library(Diploffect.INLA)
