@@ -12,3 +12,7 @@ LazyData: true
 RoxygenNote: 6.1.0
 Imports: INLA
 Additional_repositories: https://inla.r-inla-download.org/R/stable
+Suggests: 
+    knitr,
+    rmarkdown
+VignetteBuilder: knitr
