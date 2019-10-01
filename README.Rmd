@@ -15,7 +15,13 @@ In addition to phenotype values, the Diploffect package requires that each indiv
 
 ## Example 
 
-Example data is included in the package. The following code services as a simple vignette for using the package for now.
+First, install the package from Github.
+
+```{r install, eval = FALSE}
+devtools::install_github("gkeele/Diploffect.INLA")
+```
+
+
 
 ```{r load_pkg}
 library(Diploffect.INLA)
