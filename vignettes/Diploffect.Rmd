@@ -1,0 +1,67 @@
+---
+title: "Diploffect"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Diploffect}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r install}
+devtools::install_github("fboehm/Diploffect.INLA")
+```
+
+```{r setup}
+library(Diploffect.INLA)
+```
+
+```{r load_data}
+data(exampleCC)
+data(locusmatrix)
+```
+
+
+```{r run_dip}
+inla.diploffect <- run.diploffect.inla(formula = y~1+(1|strain)+(1|dose.date), 
+                                       add.on = FALSE, 				       
+                                       data = exampleCC, 
+                                       K = NULL, 
+                                       prob.matrix = locusmatrix,
+                                       num.draws = 10, 
+                                       use.dip.lincomb = TRUE, 
+                                       seed = 1, 
+                                       gamma.rate = 1, 
+                                       impute.on = "CCline"
+                                       )
+```
+
+```{r summarise}
+inla.diploffect.summary <- run.diploffect.inla.summary.stats(inla.diploffect)
+```
+
+```{r plot_effects}
+plot.straineff.ci(inla.diploffect.summary, flip = FALSE)
+```
+
+```{r plot_deviations}
+plot.deviation.ci(inla.diploffect.summary, flip = FALSE)
+```
+
+```{r plot_dips}
+plot.diplotype.ci(inla.diploffect.summary, flip = FALSE)
+```
+
+
+```{r plot_vars}
+plot.varexp.ci(inla.diploffect.summary, add.numbers = TRUE)
+```
+
+
+
