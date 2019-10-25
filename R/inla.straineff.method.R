@@ -677,7 +677,7 @@ get.combined.marginal.emp = function(samples, mliks) {
   get.weighted.density <- function(x) {
     s = rep(0, S)
     for (i in 1:S) {
-      s[i] = inla.dmarginal(x, samples[[i]])
+      s[i] = INLA::inla.dmarginal(x, samples[[i]])
     }
     return (weighted.mean(s, mliks))
   }
