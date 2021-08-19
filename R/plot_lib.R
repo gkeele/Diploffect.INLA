@@ -22,25 +22,22 @@ load.ci.from.mcmc <- function(M, file, H=1, h=1) {
 }
 
 plot.ci <- function(midvals, narrow.intervals, wide.intervals,
-                    names=1:length(midvals),
-                    add=FALSE,
-                    xlab="Estimate", xlab.line=2.5, xlab.cex=1,
-                    ylab="",
-                    yaxis=TRUE,
-                    name.margin=6,
-                    name.line=4,
-                    pch.midvals=19,
-                    col=rep("black", length(midvals)),
-                    col.midvals=col,
-                    include.top.axis=TRUE,
-                    shift=0,
-                    type="p",
-                    use.this.lim=NULL,
-                    main="", 
-                    main.cex=1, 
-                    main.line=1,
-                    ...)
-{
+                    names = 1:length(midvals),
+                    add = FALSE,
+                    xlab = "Estimate", xlab.line = 2.5, xlab.cex = 1,
+                    x.cex = 1, x.padj = 0, x.labels = TRUE,
+                    ylab = "", y.cex = 1, yaxis = TRUE,
+                    name.margin = 6, name.line = 4,
+                    pch.midvals = 19, point.cex = 1,
+                    col = rep("black", length(midvals)),
+                    col.midvals = col,
+                    include.top.axis = TRUE,
+                    shift = 0,
+                    type = "p",
+                    use.this.lim = NULL,
+                    main = "", main.cex = 1, main.line = 1,
+                    ...) {
+  
   nvals <- length(midvals)
   col.midvals <- rep(col.midvals, length.out=nvals)
   y.pos <- (1:nvals)-0.5

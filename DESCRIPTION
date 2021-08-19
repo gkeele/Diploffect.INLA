@@ -1,6 +1,6 @@
 Package: Diploffect.INLA
 Title: INLA Implementation of the Diploffect Model
-Version: 0.11
+Version: 0.12
 Authors@R: c(person("Zhaojun", "Zhang", role = "aut"), 
              person("William", "Valdar", role = "aut"), 
              person("Gregory", "Keele", email = "gkeele@gmail.com", role = c("aut", "cre")))
