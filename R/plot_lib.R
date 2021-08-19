@@ -109,7 +109,7 @@ prepare.additive.dominant.ratio.posterior <- function(files, num.draws=1000) {
 #' @param sn DEFAULT: NULL. Strain names to be used as labels in the plot. Will default to the names used in the Diploffect.INLA model probabilities.
 #' @param xlab DEFAULT: "Haplotype Effects". Label for the x axis of the plot.
 #' @param main DEFAULT: "". Title for the plot.
-#' @param flip DEFAULT: TRUE. Flips the order of the haplotypes. Allows a little flexibility in how the effects are arranged.
+#' @param flip DEFAULT: FALSE. Flips the order of the haplotypes. Allows a little flexibility in how the effects are arranged.
 #' @return Nothing. Produces plot.
 #' @export plot.straineff.ci
 #' @examples
@@ -123,13 +123,14 @@ prepare.additive.dominant.ratio.posterior <- function(files, num.draws=1000) {
 #' inla.diploffect.summary <- run.diploffect.inla.summary.stats(inla.diploffect)
 #' plot.straineff.ci(inla.diploffect.summary, flip=FALSE)
 plot.straineff.ci <- function(inla.diploffect.ci, 
-                              sn=NULL, 
-                              xlab="Haplotype Effects", 
-                              main=NULL, 
-                              main.cex=1, 
-                              main.line=2,
-                              include.top.axis=TRUE,
-                              flip=TRUE, ...) {
+                              sn = NULL, 
+                              xlab = "Haplotype Effects", 
+                              main = NULL, 
+                              main.cex = 1, 
+                              main.line = 2,
+                              include.top.axis = TRUE,
+                              flip = FALSE, 
+                              ...) {
   ci <- inla.diploffect.ci$strain.ci
   if(is.null(sn)){
     sn <- inla.diploffect.ci$analysis.id$founders

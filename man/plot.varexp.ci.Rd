@@ -4,9 +4,15 @@
 \alias{plot.varexp.ci}
 \title{Plot approximate posterior credible intervals of proportion variance explained (PVE) as a caterpillar plot}
 \usage{
-\method{plot}{varexp.ci}(inla.diploffect.ci, xlab = "Variance Explained",
-  main = NULL, main.cex = 1, main.line = 2, add.numbers = FALSE,
-  ...)
+\method{plot}{varexp.ci}(
+  inla.diploffect.ci,
+  xlab = "Variance Explained",
+  main = NULL,
+  main.cex = 1,
+  main.line = 2,
+  add.numbers = FALSE,
+  ...
+)
 }
 \arguments{
 \item{inla.diploffect.ci}{A Diploffect.INLA summary object. Output from run.diploffect.inla.summary.stats(). Contains credible information

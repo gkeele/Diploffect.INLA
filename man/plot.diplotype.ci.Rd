@@ -4,8 +4,13 @@
 \alias{plot.diplotype.ci}
 \title{Plot approximate posterior credible intervals of diplotype effects as a caterpillar plot}
 \usage{
-\method{plot}{diplotype.ci}(inla.diploffect.ci, sn = NULL,
-  xlab = "Diplotype Effects", flip = TRUE, ...)
+\method{plot}{diplotype.ci}(
+  inla.diploffect.ci,
+  sn = NULL,
+  xlab = "Diplotype Effects",
+  flip = TRUE,
+  ...
+)
 }
 \arguments{
 \item{inla.diploffect.ci}{A Diploffect.INLA summary object. Output from run.diploffect.inla.summary.stats(). Contains credible information

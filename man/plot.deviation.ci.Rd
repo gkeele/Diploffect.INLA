@@ -4,8 +4,13 @@
 \alias{plot.deviation.ci}
 \title{Plot approximate posterior credible intervals of heterozygous diplotype dominance effects as a caterpillar plot}
 \usage{
-\method{plot}{deviation.ci}(inla.diploffect.ci, sn = NULL,
-  xlab = "Dominant Deviation Effects", flip = TRUE, ...)
+\method{plot}{deviation.ci}(
+  inla.diploffect.ci,
+  sn = NULL,
+  xlab = "Dominant Deviation Effects",
+  flip = TRUE,
+  ...
+)
 }
 \arguments{
 \item{inla.diploffect.ci}{A Diploffect.INLA summary object. Output from run.diploffect.inla.summary.stats(). Contains credible information

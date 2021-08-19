@@ -4,9 +4,17 @@
 \alias{plot.straineff.ci}
 \title{Plot approximate posterior credible intervals of additive haplotype effects as a caterpillar plot}
 \usage{
-\method{plot}{straineff.ci}(inla.diploffect.ci, sn = NULL,
-  xlab = "Haplotype Effects", main = NULL, main.cex = 1,
-  main.line = 2, include.top.axis = TRUE, flip = TRUE, ...)
+\method{plot}{straineff.ci}(
+  inla.diploffect.ci,
+  sn = NULL,
+  xlab = "Haplotype Effects",
+  main = NULL,
+  main.cex = 1,
+  main.line = 2,
+  include.top.axis = TRUE,
+  flip = FALSE,
+  ...
+)
 }
 \arguments{
 \item{inla.diploffect.ci}{A Diploffect.INLA summary object. Output from run.diploffect.inla.summary.stats(). Contains credible information
@@ -18,7 +26,7 @@ for various model parameters.}
 
 \item{main}{DEFAULT: "". Title for the plot.}
 
-\item{flip}{DEFAULT: TRUE. Flips the order of the haplotypes. Allows a little flexibility in how the effects are arranged.}
+\item{flip}{DEFAULT: FALSE. Flips the order of the haplotypes. Allows a little flexibility in how the effects are arranged.}
 }
 \value{
 Nothing. Produces plot.
