@@ -12,6 +12,7 @@ StrainEffMethod <- setRefClass("StrainEffMethod",
                                    if(!is.null(X)) X_ <<- X
                                    data_ <<- data
                                    model_ <<- model
+                                   scale_ <<- scale
 
                                    N_ <<- dim(Y)[2]
 

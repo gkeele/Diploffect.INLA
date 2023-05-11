@@ -84,11 +84,10 @@ run.diploffect.inla <- function(formula, data, K=NULL,
     X <- NULL
   }
 
-  # Setting up heterscedasticity
+  # Setting up heteroscedasticity
   if(is.null(weights.on)){
     scale <- matrix(rep(1, nrow(Y)), 1, ncol(Y))
-  }
-  if(!is.null(weights.on)){
+  } else {
     scale <- matrix(new.data[, weights.on], 1, ncol(Y))
   }
   # Setting up sparse random effects
