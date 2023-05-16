@@ -381,7 +381,9 @@ INLAMethod <- setRefClass("INLAMethod",
                                 results$betas[case, 1:M] = result$summary.random[["idx"]]$mean[1:M]
                                 result$summary.random$lincomb <- result$summary.lincomb.derived
                                 results$summary.random[[case]] = result$summary.random
-                                results$inla.objects[[case]] = list(marginals.random = result$marginals.random, marginals.lincomb = result$marginals.lincomb.derived, summary.hyperpar=result$summary.hyperpar)
+                                results$inla.objects[[case]] = list(marginals.random = result$marginals.random,
+                                                                    marginals.lincomb = result$marginals.lincomb.derived,
+                                                                    summary.hyperpar=result$summary.hyperpar)
                                 hyper.samples <- INLA::inla.hyperpar.sample(n=1000, result=result, intern=FALSE)
                                 latent.samples <- INLA::inla.posterior.sample(n=latent.sample.num, result=result, use.improved.mean=TRUE)
 
@@ -390,14 +392,17 @@ INLAMethod <- setRefClass("INLAMethod",
                                 if(return.joint.posterior.samples){
                                   results$joint.posterior.samples[[case]] = t(full.par)
                                 }
-
                                 ## Calculating sums of squares
-                                SS.mat <- t(apply(full.par, 2, function(x) get.partial.ss(x, y=y, X.fix=X_, X.add=X.add, X.dom=X.dom, Z2=Z2, var.components=var.components)))
+                                SS.mat <- t(apply(full.par, 2, function(x){
+                                  get.partial.ss(x, y=y, X.fix=X_, X.add=X.add, X.dom=X.dom, Z2=Z2, var.components=var.components)
+                                }))
 
                                 hyper.samples.exp <- matrix(NA, nrow=nrow(hyper.samples), ncol=length(var.components))
                                 colnames(hyper.samples.exp) <- var.components
                                 for(i in 1:length(var.components)){
-                                  hyper.samples.exp[,i] <- apply(hyper.samples, 1, function(x) (1/exp(x[grepl(colnames(hyper.samples), pattern=paste0(" ", var.components[i]), fixed=TRUE)]))/sum(1/exp(x)))
+                                  hyper.samples.exp[,i] <- apply(hyper.samples, 1, function(x){
+                                    (1/exp(x[grepl(colnames(hyper.samples), pattern=paste0(" ", var.components[i]), fixed=TRUE)]))/sum(1/exp(x))
+                                    })
                                 }
                                 colnames(hyper.samples.exp)[colnames(hyper.samples.exp) == "idx"] <- "QTL.add.exp"
                                 colnames(hyper.samples.exp)[colnames(hyper.samples.exp) == "dom.idx"] <- "QTL.dom.exp"
@@ -575,7 +580,12 @@ INLAMethod <- setRefClass("INLAMethod",
                                 colnames(density.matrix) <- c("x", "y")
                                 return(density.matrix)
                               }
-                              density.list <- lapply(1:length(mliks), function(i) make.density.matrix(density(result$results$SS.samples[[i]][,variable], from=0, to=1)))
+                              density.list <- lapply(1:length(mliks),
+                                  function(i){
+                                      make.density.matrix(
+                                        density(result$results$SS.samples[[i]][,variable], from=0, to=1)
+                                      )
+                              })
                               marginal = list(marginal=get.combined.marginal.emp(density.list, mliks))
                               return (get.ci.from.inla.marginal(marginal))
                             },
@@ -592,7 +602,10 @@ INLAMethod <- setRefClass("INLAMethod",
                                colnames(density.matrix) <- c("x", "y")
                                return(density.matrix)
                              }
-                             density.list <- lapply(1:length(mliks), function(i) make.density.matrix(density(result$results$SS.samples[[i]][,paste("S.", effect, sep="")], from=0, to=1)))
+                             density.list <- lapply(1:length(mliks),
+                               function(i){
+                                 make.density.matrix(density(result$results$SS.samples[[i]][,paste("S.", effect, sep="")], from=0, to=1))
+                             }) 
                              marginal = list(marginal=get.combined.marginal.emp(density.list, mliks))
                              return (get.ci.from.inla.marginal(marginal))
                             }
@@ -724,9 +737,9 @@ get.partial.ss <- function(par, y, X.fix=NULL, X.add=NULL, X.dom=NULL, Z2=NULL, 
     SS.results <- c(SS.results, (recent.SS - SS.dom)/SS.fix)
     recent.SS <- SS.dom
   }
-  if(any(dom.par.idx) & any(add.par.idx)){
+  if(any(dom.par.idx) | any(add.par.idx)){  # if there are any QTL effects fitted
     SS.names <- c(SS.names, "S.qtl")
-    SS.results <- c(SS.results, (SS.fix - SS.dom)/SS.fix)
+    SS.results <- c(SS.results, (SS.fix - recent.SS)/SS.fix) # bug fix SS.dom -> recent.SS
   }
   if(any(poly.par.idx)){
     this.fit <- this.fit + diag(length(y)) %*% par[poly.par.idx]
